@@ -1,12 +1,20 @@
 (function (){
 
-	var canvas
-	var context
-	var upcoming_words = []
-	var current_word 
-	var current_letter = 0
-	var typed_word = ""
-    var timer = 1000
+	var canvas;
+	var context;
+	var upcoming_words = [];
+	var current_word ;
+	var current_letter = 0;
+	var typed_word = "";
+    //variables for points and timer
+    var timer = 1000;
+    var combo = 10;
+    var points = 0;
+    //variables for key noises
+    var key1 = new Audio('key1.mp3')
+    var key2 = new Audio('key2.mp3')
+    var key3 = new Audio('key3.mp3')
+    var i = 1
 	document.addEventListener('DOMContentLoaded', init, false);
   
     function init(){
@@ -45,7 +53,9 @@
 			nextWord()
 		}
 		draw()
-        timer--;
+        if (timer > 0){
+            timer--;
+        }
 	}
 	
 	function draw(){
@@ -53,7 +63,11 @@
         context.fillStyle= "#555555";
 		context.clearRect(0,0,width,height);
         context.closePath();
-        
+        //points counter
+        context.beginPath();
+        context.fillText(points,10,90);
+        context.closePath();
+        //points bar
         context.beginPath();
         context.fillStyle = "red";
         context.fillRect(10,10,timer,40);
@@ -65,23 +79,46 @@
 		context.fillText(current_word,50,height - 70);
 		for (var i = 1; i < 10; i += 1){
 			context.fillText(upcoming_words[i],50,height - 20 - (50*(i+1)));
-        context.closePath();
 		}
+		context.closePath();
+        
+        context.beginPath();
 		context.fillStyle = "#ffffff";
 		context.fillText(typed_word,50,height - 70);
+        context.closePath();
         
 	}
 	
 	function controls(event){
-		keycode = event.keyCode
-		letter = String.fromCharCode(keycode).toLowerCase()
+		keycode = event.keyCode;
+		letter = String.fromCharCode(keycode).toLowerCase();
 		if (letter == current_word.substring(current_letter,current_letter+1)){
-			current_letter += 1
-			typed_word += letter
-			timer += 20;
+			current_letter += 1;
+			typed_word += letter;
+            combo += 1;
+            points += Math.floor(combo/10);
+			if (timer < 980){
+                timer += 20;
+            }
+            switch(i){
+                //alternates key noises
+                case 1:
+                    key1.play();
+                    i = 2;
+                    break;
+                case 2:
+                    key2.play();
+                    i = 3;
+                    break;
+                case 3:
+                    key3.play();
+                    i = 1;
+                    break;
+            }
         }
-        else{
+        else if(timer > 20){
             timer -= 20;
+            combo = 10;
 		}
 	}
 	
