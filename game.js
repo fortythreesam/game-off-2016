@@ -12,6 +12,8 @@
     var timer
     var combo
     var points
+	//difficulty == length of word
+	var difficulty
     //variables for key noises
     var key1 = new Audio('key1.mp3')
     var key2 = new Audio('key2.mp3')
@@ -22,24 +24,8 @@
     function init(){
 		canvas = document.querySelector('canvas');
         context = canvas.getContext('2d');
-		if (window.innerWidth-18< 1200){
-			canvas.width = 1200;
-		}
-		else if (window.innerWidth-18 > 2200){
-			canvas.width = 2200
-		}
-		else{
-			canvas.width = window.innerWidth - 18;
-		}
-		if (window.innerHeight-18< 800){
-			canvas.height = 800;
-		}
-		else if (window.innerHeight-18 > 1200){
-			canvas.height = 1200
-		}
-		else{
-			canvas.height = window.innerHeight - 18;
-		}
+		canvas.height = 740
+		canvas.width = 1240
         width = canvas.width;
         height = canvas.height;
 		game_state = 0;
@@ -166,8 +152,9 @@
 		timer = 1000;
 		combo = 10;
 		points = 0;
+		difficulty = 3;
 		for (var i = 0; i < 10; i += 1){
-			upcoming_words.push(words[getRandomNumber(0,67724)].toLowerCase());
+			upcoming_words.push(words2[getRandomNumber(0,157)].toLowerCase());
 		}
 		current_word = upcoming_words[0];
 		
@@ -176,7 +163,36 @@
 	function nextWord(){
 		//moving onto the next word to type
 		upcoming_words.splice(0,1)
-		upcoming_words.push(words[getRandomNumber(0,67724)].toLowerCase())
+		//difficulty increases every 300 points
+		difficulty = Math.floor(points/300) + 3
+		if (difficulty < 9){
+			switch(difficulty){
+				case 2:
+					upcoming_words.push(words2[getRandomNumber(0,157)].toLowerCase());
+					break;
+				case 3:
+					upcoming_words.push(words3[getRandomNumber(0,1082)].toLowerCase());
+					break;
+				case 4:
+					upcoming_words.push(words4[getRandomNumber(0,3189)].toLowerCase());
+					break;
+				case 5:
+					upcoming_words.push(words5[getRandomNumber(0,5343)].toLowerCase());
+					break;
+				case 6:
+					upcoming_words.push(words6[getRandomNumber(0,7881)].toLowerCase());
+					break;
+				case 7:
+					upcoming_words.push(words7[getRandomNumber(0,9182)].toLowerCase());
+					break;
+				case 8:
+					upcoming_words.push(words8[getRandomNumber(0,9487)].toLowerCase());
+					break;
+			}
+		}
+		else{
+			upcoming_words.push(words9[getRandomNumber(0,9039)].toLowerCase());
+		}
 		current_word = upcoming_words[0]
 		current_letter = 0
 		typed_word = ""
