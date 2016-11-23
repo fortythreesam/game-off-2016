@@ -9,3 +9,15 @@ canvas {
     margin-right: auto;
     border: 1px solid white;
 }  
+
+@font-face{
+	font-family: "silkscreen"; 
+	src: local("slkscr"), url("slkscr.ttf");
+    format("truetype");
+}
+
+@font-face{
+	font-family: "silkscreenbold"; 
+	src: local("slkscrb"), url("slkscrb.ttf");
+    format("truetype");
+}

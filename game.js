@@ -15,10 +15,12 @@
 	//difficulty == length of word
 	var difficulty
     //variables for key noises
-    var key1 = new Audio('key1.mp3')
-    var key2 = new Audio('key2.mp3')
-    var key3 = new Audio('key3.mp3')
+    var key1 = new Audio('sound/key1.mp3')
+    var key2 = new Audio('sound/key2.mp3')
+    var key3 = new Audio('sound/key3.mp3')
     var i = 1
+	var background = new Image()
+	background.src = "images/background.png"
 	document.addEventListener('DOMContentLoaded', init, false);
   
     function init(){
@@ -53,6 +55,7 @@
 		context.clearRect(0,0,width,height);
 		if (game_state === 1){
 			//game
+			context.drawImage(background,0,0)
 			//points counter
 			context.beginPath();
 			context.fillText(points,10,90);
@@ -65,23 +68,23 @@
 			//words
 			context.beginPath();
 			context.fillStyle= "#555555";
-			context.font = "40px Arial";
+			context.font = "34px silkscreen";
 			context.textAlign = "left";
-			context.fillText(current_word,50,height - 70);
+			context.fillText(current_word,313,height - 200);
 			for (var i = 1; i < 10; i += 1){
-				context.fillText(upcoming_words[i],50,height - 20 - (50*(i+1)));
+				context.fillText(upcoming_words[i],313,height - 150 - (50*(i+1)));
 			}
 			context.closePath();
 			
 			context.beginPath();
 			context.fillStyle = "#ffffff";
-			context.fillText(typed_word,50,height - 70);
+			context.fillText(typed_word,313,height - 200);
 			context.closePath();
         }
 		else if (game_state === 0){
 			//main menu
 			context.fillStyle= "#555555";
-			context.font = "40px Arial";
+			context.font = "40px silkscreen";
 			context.textAlign = "center";
 			context.fillText("Hacking Lumber 3",width/2,height/2 -20);
 			context.fillText("Press Any Key To Begin",width/2,height/2 +20);
@@ -89,7 +92,7 @@
 		else if (game_state === 2){
 			//game over
 			context.fillStyle= "#555555";
-			context.font = "40px Arial";
+			context.font = "40px silkscreen";
 			context.textAlign = "center";
 			context.fillText("Game Over --- Score:"+points,width/2,height/2 -20);
 			context.fillText("Press Any Key To Return To Main Menu",width/2,height/2 +20);
@@ -183,7 +186,7 @@
 					upcoming_words.push(words6[getRandomNumber(0,7881)].toLowerCase());
 					break;
 				case 7:
-					upcoming_words.push(words7[getRandomNumber(0,9182)].toLowerCase());
+					upcoming_words.push(words7[getRandomNumber(0,9181)].toLowerCase());
 					break;
 				case 8:
 					upcoming_words.push(words8[getRandomNumber(0,9487)].toLowerCase());
@@ -191,7 +194,7 @@
 			}
 		}
 		else{
-			upcoming_words.push(words9[getRandomNumber(0,9039)].toLowerCase());
+			upcoming_words.push(words9[getRandomNumber(0,9038)].toLowerCase());
 		}
 		current_word = upcoming_words[0]
 		current_letter = 0
