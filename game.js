@@ -12,34 +12,22 @@
     var timer
     var combo
     var points
+	//difficulty == length of word
+	var difficulty
     //variables for key noises
-    var key1 = new Audio('key1.mp3')
-    var key2 = new Audio('key2.mp3')
-    var key3 = new Audio('key3.mp3')
+    var key1 = new Audio('sound/key1.mp3')
+    var key2 = new Audio('sound/key2.mp3')
+    var key3 = new Audio('sound/key3.mp3')
     var i = 1
+	var background = new Image()
+	background.src = "images/background.png"
 	document.addEventListener('DOMContentLoaded', init, false);
   
     function init(){
 		canvas = document.querySelector('canvas');
         context = canvas.getContext('2d');
-		if (window.innerWidth-18< 1200){
-			canvas.width = 1200;
-		}
-		else if (window.innerWidth-18 > 2200){
-			canvas.width = 2200
-		}
-		else{
-			canvas.width = window.innerWidth - 18;
-		}
-		if (window.innerHeight-18< 800){
-			canvas.height = 800;
-		}
-		else if (window.innerHeight-18 > 1200){
-			canvas.height = 1200
-		}
-		else{
-			canvas.height = window.innerHeight - 18;
-		}
+		canvas.height = 740
+		canvas.width = 1240
         width = canvas.width;
         height = canvas.height;
 		game_state = 0;
@@ -67,6 +55,7 @@
 		context.clearRect(0,0,width,height);
 		if (game_state === 1){
 			//game
+			context.drawImage(background,0,0)
 			//points counter
 			context.beginPath();
 			context.fillText(points,10,90);
@@ -79,23 +68,23 @@
 			//words
 			context.beginPath();
 			context.fillStyle= "#555555";
-			context.font = "40px Arial";
+			context.font = "34px silkscreen";
 			context.textAlign = "left";
-			context.fillText(current_word,50,height - 70);
+			context.fillText(current_word,313,height - 200);
 			for (var i = 1; i < 10; i += 1){
-				context.fillText(upcoming_words[i],50,height - 20 - (50*(i+1)));
+				context.fillText(upcoming_words[i],313,height - 150 - (50*(i+1)));
 			}
 			context.closePath();
 			
 			context.beginPath();
 			context.fillStyle = "#ffffff";
-			context.fillText(typed_word,50,height - 70);
+			context.fillText(typed_word,313,height - 200);
 			context.closePath();
         }
 		else if (game_state === 0){
 			//main menu
 			context.fillStyle= "#555555";
-			context.font = "40px Arial";
+			context.font = "40px silkscreen";
 			context.textAlign = "center";
 			context.fillText("Hacking Lumber 3",width/2,height/2 -20);
 			context.fillText("Press Any Key To Begin",width/2,height/2 +20);
@@ -103,7 +92,7 @@
 		else if (game_state === 2){
 			//game over
 			context.fillStyle= "#555555";
-			context.font = "40px Arial";
+			context.font = "40px silkscreen";
 			context.textAlign = "center";
 			context.fillText("Game Over --- Score:"+points,width/2,height/2 -20);
 			context.fillText("Press Any Key To Return To Main Menu",width/2,height/2 +20);
@@ -166,8 +155,9 @@
 		timer = 1000;
 		combo = 10;
 		points = 0;
+		difficulty = 3;
 		for (var i = 0; i < 10; i += 1){
-			upcoming_words.push(words[getRandomNumber(0,67724)].toLowerCase());
+			upcoming_words.push(words2[getRandomNumber(0,157)].toLowerCase());
 		}
 		current_word = upcoming_words[0];
 		
@@ -176,7 +166,36 @@
 	function nextWord(){
 		//moving onto the next word to type
 		upcoming_words.splice(0,1)
-		upcoming_words.push(words[getRandomNumber(0,67724)].toLowerCase())
+		//difficulty increases every 300 points
+		difficulty = Math.floor(points/300) + 3
+		if (difficulty < 9){
+			switch(difficulty){
+				case 2:
+					upcoming_words.push(words2[getRandomNumber(0,157)].toLowerCase());
+					break;
+				case 3:
+					upcoming_words.push(words3[getRandomNumber(0,1082)].toLowerCase());
+					break;
+				case 4:
+					upcoming_words.push(words4[getRandomNumber(0,3189)].toLowerCase());
+					break;
+				case 5:
+					upcoming_words.push(words5[getRandomNumber(0,5343)].toLowerCase());
+					break;
+				case 6:
+					upcoming_words.push(words6[getRandomNumber(0,7881)].toLowerCase());
+					break;
+				case 7:
+					upcoming_words.push(words7[getRandomNumber(0,9181)].toLowerCase());
+					break;
+				case 8:
+					upcoming_words.push(words8[getRandomNumber(0,9487)].toLowerCase());
+					break;
+			}
+		}
+		else{
+			upcoming_words.push(words9[getRandomNumber(0,9038)].toLowerCase());
+		}
 		current_word = upcoming_words[0]
 		current_letter = 0
 		typed_word = ""
