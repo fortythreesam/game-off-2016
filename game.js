@@ -19,8 +19,22 @@
     var key2 = new Audio('sound/key2.mp3')
     var key3 = new Audio('sound/key3.mp3')
     var i = 1
+    //images
 	var background = new Image()
 	background.src = "images/background.png"
+    var trunk1 = new Image()
+	trunk1.src = "images/trunk1.png"
+    var trunk2 = new Image()
+	trunk2.src = "images/trunk2.png"
+    var trunk3 = new Image()
+	trunk3.src = "images/trunk3.png"
+    var trunk4 = new Image()
+	trunk4.src = "images/trunk4.png"
+    var trunk5 = new Image()
+	trunk5.src = "images/trunk5.png"
+    var tree = [];
+    var treemod = 0;
+    
 	document.addEventListener('DOMContentLoaded', init, false);
   
     function init(){
@@ -31,8 +45,13 @@
         width = canvas.width;
         height = canvas.height;
 		game_state = 0;
-		window.setInterval(main,33);
+		window.setInterval(main,10);
 		window.addEventListener("keydown",controls,false);
+        for (i = 0; i < 12; i++){
+            textureNum = getRandomNumber(1,5);
+            tree.push[textureNum]
+            console.log(textureNum)
+        }
     }
 	
 	function main(){
@@ -42,7 +61,7 @@
 				nextWord()
 			}
 			if (timer > 0){
-				timer--;
+				timer-=.5;
 			}
 			else {
 				game_state = 2
@@ -60,26 +79,32 @@
 			context.beginPath();
 			context.fillText(points,10,90);
 			context.closePath();
-			//points bar
-			context.beginPath();
-			context.fillStyle = "red";
-			context.fillRect(10,10,timer,40);
-			context.closePath();
+            //tree
+            drawTree(tree);
 			//words
 			context.beginPath();
 			context.fillStyle= "#555555";
 			context.font = "34px silkscreen";
 			context.textAlign = "left";
-			context.fillText(current_word,313,height - 200);
+			context.fillText(current_word,313,height - 200 - treemod);
 			for (var i = 1; i < 10; i += 1){
-				context.fillText(upcoming_words[i],313,height - 150 - (50*(i+1)));
+                context.beginPath();
+				context.fillText(upcoming_words[i],313,height - 150 - (50*(i+1)) - treemod);
+                context.closePath;
 			}
 			context.closePath();
-			
+            //brighter text over typed word
 			context.beginPath();
 			context.fillStyle = "#ffffff";
-			context.fillText(typed_word,313,height - 200);
+			context.fillText(typed_word,313,height - 200 - treemod);
 			context.closePath();
+            
+			//points bar
+			context.beginPath();
+			context.fillStyle = "red";
+			context.fillRect(10,10,timer,40);
+			context.closePath();
+            
         }
 		else if (game_state === 0){
 			//main menu
@@ -99,6 +124,35 @@
 		}
 	}
 	
+	function drawTree(obj){
+        if (treemod > 0){
+            treemod -= 2
+        }
+        for (var i = 1; i < 12; i += 1){
+            context.beginPath();
+                switch(tree[i]){
+                    case 1:
+                        context.drawImage(trunk1,310,height - 150 - (50*(i+1)) - treemod);
+						break;
+					case 2:
+						context.drawImage(trunk2,310,height - 150 - (50*(i+1)) - treemod);
+						break;
+					case 3:
+						context.drawImage(trunk3,310,height - 150 - (50*(i+1)) - treemod);
+						break;
+                    case 4:
+						context.drawImage(trunk4,310,height - 150 - (50*(i+1)) - treemod);
+						break;
+                    case 5:
+						context.drawImage(trunk5,310,height - 150 - (50*(i+1)) - treemod);
+						break;
+                    default:
+						context.drawImage(trunk1,310,height - 150 - (50*(i+1)) - treemod);
+						break;
+                }
+                context.closePath();
+            }
+    }
 	function controls(event){
 		keycode = event.keyCode;
 		if (game_state === 1){
@@ -159,13 +213,19 @@
 		for (var i = 0; i < 10; i += 1){
 			upcoming_words.push(words2[getRandomNumber(0,157)].toLowerCase());
 		}
+		for (var i = 0; i < 13; i += 1){
+            tree.push(getRandomNumber(1,5));
+		}
 		current_word = upcoming_words[0];
 		
 	}
 	
 	function nextWord(){
 		//moving onto the next word to type
-		upcoming_words.splice(0,1)
+        tree.push(getRandomNumber(1,5));
+        tree.splice(0,1);
+		upcoming_words.splice(0,1);
+        treemod += 52
 		//difficulty increases every 300 points
 		difficulty = Math.floor(points/300) + 3
 		if (difficulty < 9){
