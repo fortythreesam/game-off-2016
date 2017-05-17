@@ -4,17 +4,20 @@ options with difficulty setting
 maybe background setting
 volume setting and music
 easy 3-5 letters, med 4-8 hard 6+
-testing buttons
 color pallet, redo images
 Fix typing sound and make tree hitting sound on word finish. axe swing on letter type
 on every lettercount/2 and final letter?
 bonus words
 better comments // trying xD
+time & score gotten based on words
+man is too short or ground needs to be raised
 
 Done:
 Different files
 Fixed noises
 Made the branches display, needs texture though and gameplay implimentation 
 11 words lined up in list instead of 10
+testing buttons//(no timer, auto complete words, add points)
+axe swing on letter type on every lettercount//(starts on every keypress if ready)
 
-*time back based on letters also score based on letters? // score and time already based on letters?
+
