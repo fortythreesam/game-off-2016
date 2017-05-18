@@ -1,9 +1,13 @@
 function controls(event){
     //Handles typing of letters and plays random key noises
     keycode = event.keyCode;
+	if (keycode == 223){
+	  dev_tools_enabled = !dev_tools_enabled;
+	}
     if (game_state === 1){
         letter = String.fromCharCode(keycode).toLowerCase();
         if (letter == current_word.substring(current_letter,current_letter+1)){
+		    lumberjack.animate = true;
             current_letter += 1;
             typed_word += letter;
             combo += 1;
@@ -34,6 +38,9 @@ function controls(event){
             timer -= 10;
             combo = 10;
         }
+		if (dev_tools_enabled){
+		  dev_tools_control(keycode);
+		}
     }
     else if (game_state === 0){
         //main menu

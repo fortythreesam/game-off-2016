@@ -18,6 +18,8 @@ var key2 = new Audio('sound/key2.mp3')
 var key3 = new Audio('sound/key3.mp3')
 var i = 1
 //images
+var lumberjack_img = new Image()
+lumberjack_img.src = "images/lumberjack.png"
 var background = new Image()
 background.src = "images/background.png"
 var trunk1 = new Image()
@@ -31,7 +33,27 @@ trunk4.src = "images/trunk4.png"
 var trunk5 = new Image()
 trunk5.src = "images/trunk5.png"
 var tree = [];
+var lumberjack = {
+	sprite: lumberjack_img,
+	frame: 0,
+	direction: 0.75,
+	width: 340,
+	height: 320,
+	animate: false,
+	draw: function(){
+	  context.drawImage(lumberjack.sprite,lumberjack.width*Math.floor(lumberjack.frame),0,lumberjack.width,lumberjack.height,450,350,lumberjack.width,lumberjack.height);
+	  if (lumberjack.animate || lumberjack.frame > 0){
+	    lumberjack.frame += lumberjack.direction;
+		if (lumberjack.frame >= 10 || lumberjack.frame <= 0){
+		  lumberjack.direction *= -1;
+		  lumberjack.animate = false;
+		}
+	  }
+	}
+};
 var treemod = 0;
+//dev
+dev_tools_enabled = false;
 
 document.addEventListener('DOMContentLoaded', init, false);
 
@@ -59,6 +81,9 @@ function main(){
         else {
             game_state = 2
         }
+		if (dev_tools_enabled){
+		  dev_tools();
+		}
     }
     draw()
 }

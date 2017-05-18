@@ -5,6 +5,7 @@ function draw(){
         //draw game being played
         context.drawImage(background,0,0)
         drawTree(tree);
+		lumberjack.draw()
         drawWords();
         drawPoints();
     }
