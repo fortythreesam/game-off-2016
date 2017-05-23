@@ -16,6 +16,9 @@ function draw(){
     else if (game_state === 2){
         gameOverScreen();
     }
+	else if (game_state === 3){
+		settings_draw();
+	}
 }
 
 function drawPoints(){
@@ -105,6 +108,4 @@ function mainMenuScreen(){
     context.fillText("Press Any Key To Begin",width/2,height/2 +20);
 }
 
-function drawSettingsScreen(){
-    
-}
+
