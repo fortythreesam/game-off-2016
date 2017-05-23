@@ -25,15 +25,15 @@ function controls(event){
 					//alternates key noises
 					case 1:
 						key1.play();
-						i = 2;
+						i = getRandomNumber(1,3);
 						break;
 					case 2:
 						key2.play();
-						i = 3;
+						i = getRandomNumber(1,3);
 						break;
 					case 3:
 						key3.play();
-						i = 1;
+						i = getRandomNumber(1,3);
 						break;
 				}
 			}
