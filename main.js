@@ -17,6 +17,7 @@ var key1 = new Audio('sound/key1.mp3')
 var key2 = new Audio('sound/key2.mp3')
 var key3 = new Audio('sound/key3.mp3')
 var i = 1
+sounds = [key1, key2, key3]
 //images
 var lumberjack_img = new Image()
 lumberjack_img.src = "images/lumberjack.png"
@@ -94,10 +95,18 @@ function nextWord(){
     UpdateTree(tree);
     upcoming_words.splice(0,1);
     treemod += 52
-    //difficulty increases every 300 points
-    difficulty = Math.floor(points/300) + 3
+    var wordlength = 3;
+    if(settings.difficulty == 0){
+        wordlength = getRandomNumber(3,5);
+    }
+    if(settings.difficulty == 1){
+        wordlength = getRandomNumber(4,8);
+    }
+    if(settings.difficulty == 2){
+        wordlength = getRandomNumber(6,8);
+    }
     if (difficulty < 9){
-        switch(difficulty){
+        switch(wordlength){
             case 2:
                 upcoming_words.push(words2[getRandomNumber(0,157)].toLowerCase());
                 break;

@@ -108,4 +108,22 @@ function mainMenuScreen(){
     context.fillText("Press Any Key To Begin",width/2,height/2 +20);
 }
 
+function settings_draw(){
+	context.textAlign = "center";
+	context.strokeStyle =  "#4b6aa8";
+	context.strokeRect(420,165 + (200*settings.pointer),400,50);
+	context.fillStyle =  "#555555";
+    context.fillText("Volume:"+settings.volume,(width/2),200);
+    if(settings.difficulty == 0){
+        context.fillText("Difficulty: EASY",(width/2),400);
+    }
+    if(settings.difficulty == 1){
+        context.fillText("Difficulty: NORMAL",(width/2),400);
+    }
+    if(settings.difficulty == 2){
+        context.fillText("Difficulty: HARD",(width/2),400);
+    }
+	
+	
+}
 
