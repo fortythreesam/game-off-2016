@@ -1,9 +1,7 @@
 ToDo:
 main menu game over screen
-options with difficulty setting
 maybe background setting
-volume setting and music
-easy 3-5 letters, med 4-8 hard 6+
+and music
 color pallet, redo images
 Fix typing sound and make tree hitting sound on word finish. axe swing on letter type
 on every lettercount/2 and final letter?
@@ -19,5 +17,5 @@ Made the branches display, needs texture though and gameplay implimentation
 11 words lined up in list instead of 10
 testing buttons//(no timer, auto complete words, add points)
 axe swing on letter type on every lettercount//(starts on every keypress if ready)
-
-
+volume setting options with difficulty setting
+easy 3-5 letters, med 4-8 hard 6+

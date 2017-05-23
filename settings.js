@@ -13,6 +13,9 @@ function change_setting(direction){
 		else if (settings.volume < 0) {
 			settings.volume = 0;
 		}
+		for(i = 0; i < sounds.length; i++){
+            sounds[i].volume = settings.volume/100
+        }
 	}
 	else if (settings.pointer == 1){
 	    settings.difficulty += 1*direction
@@ -25,12 +28,3 @@ function change_setting(direction){
 	}
 }
 
-function settings_draw(){
-	context.textAlign = "center";
-	context.strokeStyle =  "#4b6aa8";
-	context.strokeRect(450,165 + (200*settings.pointer),340,50);
-	context.fillStyle =  "#555555";
-    context.fillText("Volume:"+settings.volume,(width/2),200);
-	context.fillText("Difficulty:"+settings.difficulty,(width/2),400);
-	
-}
